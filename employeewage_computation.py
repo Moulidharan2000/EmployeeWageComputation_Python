@@ -1,30 +1,31 @@
 from random import randint
 
 WAGE_PER_HR = 20
-WORKING_HR = 8
-PART_TIME_HR = 4
 WORKING_DAYS = 20
+TOTAL_WORKING_HRS = 100
 
 
 def calculate_wage():
-    check = True if random_num == 1 or random_num == 2 else False
-    wage_per_day = 0
-    monthly_wages = 0
-    if check:
-        print("Employee is Present")
-        match random_num:
-            case 1:
-                wage_per_day = WAGE_PER_HR * WORKING_HR
-            case 2:
-                print("Employee is Part Time")
-                wage_per_day = PART_TIME_HR * WAGE_PER_HR
-    else:
-        print("Employee is Absent")
-    monthly_wages = WORKING_DAYS * wage_per_day
-    print("Employee Wage Per Day : ", wage_per_day)
+    total_emp_hrs = 0
+    total_working_days = 1
+    working_hrs = 0
+    while total_working_days < WORKING_DAYS and total_emp_hrs < TOTAL_WORKING_HRS:
+        random_num = randint(0, 2)
+        if random_num:
+            match random_num:
+                case 1:
+                    working_hrs = 8
+                case 2:
+                    working_hrs = 4
+                case 0:
+                    working_hrs = 0
+        total_emp_hrs += working_hrs
+        total_working_days += 1
+    monthly_wages = total_emp_hrs * WAGE_PER_HR
+    print("Employee's Total Working Hours : ", total_emp_hrs)
+    print("Employee's Total Working Days : ", total_working_days)
     print("Employee Wage for Month : ", monthly_wages)
 
 
 if __name__ == "__main__":
-    random_num = randint(0, 2)
     calculate_wage()
