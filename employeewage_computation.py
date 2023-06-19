@@ -12,13 +12,8 @@ def calculate_wage():
     while total_working_days < WORKING_DAYS and total_emp_hrs < TOTAL_WORKING_HRS:
         random_num = randint(0, 2)
         if random_num:
-            match random_num:
-                case 1:
-                    working_hrs = 8
-                case 2:
-                    working_hrs = 4
-                case 0:
-                    working_hrs = 0
+            working_hrs_dict = {1: 8, 2: 4, 0: 0}
+            working_hrs = working_hrs_dict.get(random_num)
         total_emp_hrs += working_hrs
         total_working_days += 1
     monthly_wages = total_emp_hrs * WAGE_PER_HR
