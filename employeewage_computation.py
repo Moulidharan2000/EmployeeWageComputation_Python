@@ -76,49 +76,71 @@ class MultipleCompany:
             print(i, " : ", len(j.emp_dict))
 
 
+def _add_employee():
+    company_name = input("\nEnter the Company Name : ")
+    company = multiple_company.company_dict.get(company_name)
+    if not company:
+        company = Company(company_name)
+    emp_name = input("Enter the Employee Name : ")
+    wage_per_hr = int(input("Enter the Wage per Hour : "))
+    working_days = int(input("Enter the number of working days : "))
+    total_working_hrs = int(input("Enter the total working hours : "))
+    employee = Employee(emp_name, wage_per_hr, working_days, total_working_hrs)
+    employee.calculate_wage()
+    return company, employee
+
+
+def _add():
+    company, employee = _add_employee()
+    company.add_emp(employee)
+    multiple_company.add_company(company)
+    print("Employee and Company Details are Added...")
+
+
+def _update():
+    company, employee = _add_employee()
+    company.update_emp(employee)
+    multiple_company.update_company(company)
+    print("Employee Details are Updated...")
+
+
+def _delete():
+    company_name = input("Enter the Company Name : ")
+    company = multiple_company.company_dict.get(company_name)
+    if not company:
+        print("Company Not Found...")
+    emp_name = input("Enter the Employee Name : ")
+    company.remove_emp(emp_name)
+
+
+def _deletecompany():
+    company_name = input("Enter the Company Name : ")
+    multiple_company.remove_company(company_name)
+
+
+def _displaydetails():
+    print("Employee Details : ")
+    companies = input("Enter Company Name : ")
+    company_employees = multiple_company.company_dict.get(companies)
+    if not company_employees:
+        print("Company Not Found....")
+    else:
+        company_employees.display()
+
+
+def _multiplecompanies():
+    if not multiple_company.company_dict:
+        print("No Companies Present...")
+    else:
+        multiple_company.get_company()
+
+
 if __name__ == '__main__':
     multiple_company = MultipleCompany()
     while True:
-        option = int(input("\n1.Add Employee\n2.Update Employee\n3.Delete Employee\n4.Delete Company\n5.Display  Details\n6.Multiple Companies Details\n0.Exit\nEnter the Option : "))
-        if option == 1 or option == 2:
-            company_name = input("\nEnter the Company Name : ")
-            company = multiple_company.company_dict.get(company_name)
-            if not company:
-                company = Company(company_name)
-            emp_name = input("Enter the Employee Name : ")
-            wage_per_hr = int(input("Enter the Wage per Hour : "))
-            working_days = int(input("Enter the number of working days : "))
-            total_working_hrs = int(input("Enter the total working hours : "))
-            employee = Employee(emp_name, wage_per_hr, working_days, total_working_hrs)
-            employee.calculate_wage()
-            if option == 1:
-                company.add_emp(employee)
-                multiple_company.add_company(company)
-                print("Employee and Company Details are Added...")
-            else:
-                company.update_emp(employee)
-                multiple_company.update_company(company)
-                print("Employee Details are Updated...")
-        elif option == 3:
-            company_name = input("Enter the Company Name : ")
-            emp_name = input("Enter the Employee Name : ")
-            company.remove_emp(emp_name)
-        elif option == 4:
-            company_name = input("Enter the Company Name : ")
-            multiple_company.remove_company(company_name)
-        elif option == 5:
-            print("Employee Details : ")
-            companies = input("Enter Company Name : ")
-            company_employees = multiple_company.company_dict.get(companies)
-            if not company_employees:
-                print("Company Not Found....")
-            else:
-                company_employees.display()
-        elif option == 6:
-            if not multiple_company.company_dict:
-                print("No Companies Present...")
-            else:
-                multiple_company.get_company()
-        elif option == 0:
-            print("Exited...")
+        option = int(input(
+            "\n1.Add Employee\n2.Update Employee\n3.Delete Employee\n4.Delete Company\n5.Display  Details\n6.Multiple Companies Details\n0.Exit\nEnter the Option : "))
+        choice_dict = {1: _add, 2: _update, 3: _delete, 4: _deletecompany, 5: _displaydetails, 6: _multiplecompanies}
+        choice_dict.get(option)()
+        if option == 0:
             break
