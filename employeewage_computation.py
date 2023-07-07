@@ -36,6 +36,7 @@ class Company:
     def update_emp(self, emp_obj):
         if emp_obj.emp_name in self.emp_dict:
             self.emp_dict.update({emp_obj.emp_name: emp_obj.total_wage})
+            print("Employee Details Updated...")
         else:
             print("Employee is not Found...")
 
@@ -61,6 +62,7 @@ class MultipleCompany:
     def update_company(self, comp_obj):
         if comp_obj.company_name in self.company_dict:
             self.company_dict.update({comp_obj.company_name: comp_obj})
+            print("Company Details Updated...")
         else:
             print("Company Details not Found...")
 
